@@ -3,6 +3,7 @@ const request = require('request')
 const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors');
+const db = require("./firebase/firebase_connect");
 
 ///-----Port-----///
 const port = app.listen(process.env.PORT || 4004);
@@ -11,10 +12,27 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static('public'));
 
+//----AllOW ACCESS -----//
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "");
+    res.header("Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+
+
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
+
+    res.locals.top = order_ID;
+    next();
+});
+
+
+
+
 app.get('/', (req, res, next) => {
-
     res.status(200).send("Hello welcome to TopFind Mpesa API")
-
 
 })
 
