@@ -101,11 +101,12 @@ app.post('/stk_callback', _urlencoded, middleware, function(req, res, next) {
         console.log(req.body.Body.stkCallback.CallbackMetadata)
     }
 
-
 })
 
 
 ////-----ACCESS_TOKEN-----
+
+
 app.get('/access_token', access, (req, res) => {
 
     res.status(200).json({ access_token: req.access_token })
